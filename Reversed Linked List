@@ -1,0 +1,66 @@
+#include <iostream>
+using namespace std;
+struct Node
+{
+    int data;
+    Node *next;
+};
+Node *head;
+class Linkedlist
+{
+
+public:
+    Node *Reverse(Node *f)
+    {
+        if (f == nullptr || f->next == nullptr)
+        {
+            head = f;
+            return f;
+        }
+        Node *reversed = Reverse(f->next);
+        Node *temp = f->next;
+        temp->next = f;
+        f->next = NULL;
+        return reversed;
+    }
+    void insert(int x)
+    {
+        Node *temp = new Node();
+        temp->data = x;
+        temp->next = head;
+        head = temp;
+    }
+    void print()
+    {
+        Node *temp1 = head;
+        while (temp1 != NULL)
+        {
+            cout << temp1->data << "  ";
+            temp1 = temp1->next;
+        }
+        cout << endl;
+    }
+   
+    void reverseAndPrint()
+    {
+        head = Reverse(head);
+        print();
+    }
+};
+int main()
+{
+
+    head = nullptr;
+    Linkedlist l;
+    l.insert(2);
+    l.insert(3);
+    l.insert(4);
+    l.insert(5);
+    cout << "Original: ";
+    l.print();
+    cout << "Reversed: ";
+    l.reverseAndPrint();
+   
+
+    return 0;
+}
